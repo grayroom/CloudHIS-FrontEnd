@@ -1,6 +1,7 @@
 <template>
-  <div class="h-[calc(100vh-4rem)] w-8/12">
-    <QuillEditor theme="snow" class="min-h-full" />
+  <div class=" min-w-fit flex-1">
+    <QuillEditor class="min-h-full"/>
+
   </div>
 </template>
 
@@ -14,10 +15,7 @@ export default {
 </script>
 
 <style>
-  .ql-toolbar {
-    height: 3rem;
-  }
-  .ql-editor {
-    height: calc(100vh - 9rem);
-  }
+.ql-editor {
+  height: calc(100vh - 8rem);
+}
 </style>
