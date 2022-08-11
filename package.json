@@ -1,5 +1,5 @@
 {
-  "name": "emr",
+  "name": "cloudhis-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
