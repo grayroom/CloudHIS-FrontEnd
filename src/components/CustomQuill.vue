@@ -50,9 +50,3 @@ export default {
 
 
 </script>
-
-<style scoped>
-#app {
-  padding: calc(1rem - 1px);
-}
-</style>

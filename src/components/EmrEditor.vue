@@ -1,7 +1,6 @@
 <template>
-  <div class=" min-w-fit flex-1">
+  <div class="min-w-fit flex-1 p-4">
     <QuillEditor class="min-h-full"/>
-
   </div>
 </template>
 
@@ -16,6 +15,6 @@ export default {
 
 <style>
 .ql-editor {
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 40px - 2rem);
 }
 </style>

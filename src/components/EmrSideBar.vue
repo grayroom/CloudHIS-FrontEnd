@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar h-[calc(100vh-4rem)] w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white hover:shadow-lg">
+    <div class="sidebar w-[3.35rem] overflow-hidden border-r border-gray-300 hover:w-56 hover:bg-white hover:shadow-lg">
       <div class="flex flex-col justify-between pt-2 pb-6">
         <div>
           <!-- <div class="w-max p-2.5">
