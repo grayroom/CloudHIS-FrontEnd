@@ -1,5 +1,6 @@
 <template>
-    <div class="sidebar w-[3.35rem] overflow-hidden border-r border-gray-300 hover:w-56 hover:bg-white hover:shadow-lg">
+    <div class="sidebar w-[3.35rem] overflow-hidden border-r border-gray-300 hover:w-56
+     hover:bg-white hover:shadow-lg">
       <div class="flex flex-col justify-between pt-2 pb-6">
         <div>
           <!-- <div class="w-max p-2.5">
@@ -92,6 +93,6 @@
 <style>
 
 .sidebar {
-  transition: all .4s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 </style>

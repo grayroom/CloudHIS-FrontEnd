@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-inner p-4 border-r border-gray-300">
+  <div class="p-4 border-r bg-gray-300 border-gray-300 overflow-hidden w-56">
     <q-tree :nodes="simple" node-key="label" />
   </div>
 </template>
