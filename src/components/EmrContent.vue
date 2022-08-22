@@ -1,20 +1,57 @@
 <template>
-  <div class="h-[calc(100vh-4rem)] bg-gray-200 shadow-inner">
-    <div class="flex justify-center pt-2 pb-6">
-      <ul class="border-b border-r border-t border-gray-200 w-52 text-gray-900 cursor-pointer select-none">
-        <li class="ml-1 mr-1 mb-1 bg-white px-6 py-2 shadow">An item</li>
-        <li class="ml-1 mr-1 mb-1 bg-white px-6 py-2 shadow">A second item</li>
-        <li class="ml-1 mr-1 mb-1 bg-white px-6 py-2 shadow">A third item</li>
-        <li class="ml-1 mr-1 mb-1 bg-white px-6 py-2 shadow">A fourth item</li>
-        <li class="ml-1 mr-1 mb-1 bg-white px-6 py-2 shadow">And a fifth one</li>
-      </ul>
-    </div>
+  <div class="p-4 border-r bg-gray-300 border-gray-300 overflow-hidden w-56">
+    <q-tree :nodes="simple" node-key="label" />
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  setup() {
+    return {
+      simple: [
+        {
+          label: 'Satisfied customers (with avatar)',
+          avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
+          children: [
+            {
+              label: 'Good food (with icon)',
+              icon: 'restaurant_menu',
+              children: [
+                { label: 'Quality ingredients' },
+                { label: 'Good recipe' }
+              ]
+            },
+            {
+              label: 'Good service (disabled node with icon)',
+              icon: 'room_service',
+              disabled: true,
+              children: [
+                { label: 'Prompt attention' },
+                { label: 'Professional waiter' }
+              ]
+            },
+            {
+              label: 'Pleasant surroundings (with icon)',
+              icon: 'photo',
+              children: [
+                {
+                  label: 'Happy atmosphere (with image)',
+                  img: 'https://cdn.quasar.dev/img/logo_calendar_128px.png'
+                },
+                { label: 'Good table presentation' },
+                { label: 'Pleasing decor' }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped lang="scss"> 
+.tree-container {
+  padding: 1rem;
+}
 </style>
