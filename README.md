@@ -1,4 +1,4 @@
-# emr
+# cloud-his-frontend
 
 ## Project setup
 ```

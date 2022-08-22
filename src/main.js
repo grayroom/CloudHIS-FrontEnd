@@ -1,7 +1,9 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import './index.css';
-import { Quasar } from 'quasar';
-import quasarUserOptions from './quasar-user-options';
+import Vue from 'vue'
+import App from './App.vue'
+import './tailwind.css'
 
-createApp(App).use(Quasar, quasarUserOptions).mount('#app');
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')

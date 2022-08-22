@@ -1,22 +1,19 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex flex-row">
-    <EmrSideBar></EmrSideBar>
-    <EmrContent></EmrContent>
-    <EmrEditor></EmrEditor>
+  <div class="flex felx-row h-screen">
+    <EmrTree class="w-80"></EmrTree>
+    <EmrEditor class="shadow-xl flex-auto"></EmrEditor>
   </div>
 </template>
 
     
 <script>
-import EmrSideBar from "./components/EmrSideBar.vue"
-import EmrContent from "./components/EmrContent.vue"
 import EmrEditor from "./components/EmrEditor.vue"
+import EmrTree from "./components/EmrTree.vue";
 
 export default {
   components: {
-    EmrSideBar,
-    EmrContent,
-    EmrEditor
+    EmrTree,
+    EmrEditor,
   }
 }
 </script> 

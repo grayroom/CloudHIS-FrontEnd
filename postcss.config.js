@@ -1,6 +1,5 @@
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
-
 const postcssPurgecss = require(`@fullhuman/postcss-purgecss`);
 
 const purgecss = postcssPurgecss({
