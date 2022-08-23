@@ -1,5 +1,6 @@
 const { defineConfig } = require('@vue/cli-service');
 const BundleTracker = require('webpack-bundle-tracker');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = defineConfig({
   publicPath: '/', // app이 배포될 root url
@@ -8,6 +9,7 @@ module.exports = defineConfig({
   assetsDir: 'static', // static 폴더를 정의하는 경로
 
   configureWebpack: {
+    plugins: [new MiniCssExtractPlugin()],
     module: {
       rules: [
         {

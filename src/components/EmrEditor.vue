@@ -2,13 +2,11 @@
   <div class="p-4 editor">
     <div class="editor__buttons--navbar mb-1 flex gap-1">
       <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300"
-        v-on:click="insertRadio">
+      hover:bg-gray-300" v-on:click="insertRadio">
         양성/음성 선택
       </button>
       <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300"
-      v-on:click="insertDropdown">
+      hover:bg-gray-300" v-on:click="insertDropdown">
         목록 선택
       </button>
       <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
@@ -16,12 +14,19 @@
         일반텍스트
       </button>
       <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300"
-     v-on:click="insertHr">
+      hover:bg-gray-300" v-on:click="insertHr">
         구분선 추가
       </button>
     </div>
+
     <editor-content :editor="editor" class="" />
+
+    <div class="editor__buttons--footer mt-1 flex gap-1">
+      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
+      hover:bg-gray-300" v-on:click="putData">
+        제출
+      </button>
+    </div>
   </div>
 </template>
 
@@ -36,12 +41,13 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule'
 
 import { v4 as uuidv4 } from 'uuid'
 
+import axios from 'axios'
+
 import {
   radioSelect as RadioSelect,
   dropdownSelect as DropdownSelect,
   editable as Editable
 } from './Extension.js'
-
 
 export default {
   components: {
@@ -89,6 +95,24 @@ export default {
     },
     insertHr() {
       this.editor.chain().focus().setHorizontalRule().run()
+    },
+
+    // put editor data with axios
+    putData() {
+      axios.post('http://127.0.0.1:8000/templates/', {
+        content: this.editor.getJSON()
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
 
@@ -99,9 +123,10 @@ export default {
 </script>
 
 <style lang="scss">
-button{
+button {
   line-break: nowrap;
 }
+
 /* Basic editor styles */
 .ProseMirror {
   padding: 1rem;
@@ -113,6 +138,7 @@ button{
     margin-bottom: 1rem;
   }
 }
+
 /* Basic editor styles */
 
 /* Placeholder (at the top) */
