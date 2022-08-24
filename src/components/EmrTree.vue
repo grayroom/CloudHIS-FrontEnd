@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-hidden border-gray-100 border-r p-4">
+  <div class="overflow-hidden border-gray-100 border-r p-4 dark:border-gray-500">
     <v-jstree :data="data" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
 
 

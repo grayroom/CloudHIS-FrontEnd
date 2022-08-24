@@ -1,31 +1,111 @@
 <template>
   <div class="p-4 editor">
-    <div class="editor__buttons--navbar mb-1 flex gap-1">
-      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300" v-on:click="insertRadio">
+    <div class="editor__buttons--navbar mb-2 flex flex-wrap gap-1">
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+        @click="insertRadio">
         양성/음성 선택
       </button>
-      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300" v-on:click="insertDropdown">
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+        @click="insertDropdown">
         목록 선택
       </button>
-      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300">
-        일반텍스트
-      </button>
-      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300" v-on:click="insertHr">
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+        @click="insertHr">
         구분선 추가
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
+      </button>
+      <button
+        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+        더미버튼
       </button>
     </div>
 
     <editor-content :editor="editor" class="" />
 
-    <div class="editor__buttons--footer mt-1 flex gap-1">
-      <button outlined class="text-sm p-2 bg-gray-200 border border-gray-400 whitespace-nowrap
-      hover:bg-gray-300" v-on:click="putData">
-        제출
+    <div class="editor__buttons--footer mt-2 flex gap-1">
+      <button outlined
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        @click="toggleModal">
+        서식 저장하기
       </button>
+    </div>
+
+    <!-- Modal container -->
+    <div id="defaultModal" tabindex=" -1" aria-hidden="true" ref="defaultModal"
+      class="hidden overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 h-modal md:h-full">
+      <div class="relative p-4 w-full max-w-2xl h-full md:h-auto m-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 select-none dark:text-white">
+              양식 생성하기
+            </h3>
+            <button @click="toggleModal"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span class="sr-only">닫기</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6 space-y-6">
+            <div class="mb-6">
+              <label for="tmeplate-title"
+                class="block mb-2 text-sm font-medium text-gray-900 select-none dark:text-gray-300">
+                양식 이름
+              </label>
+              <input type="text" id="tmeplate-title" v-bind:value="title"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="양식 이름을 정해주세요" required>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              @click="putData">
+              승인</button>
+            <button @click="toggleModal" outlined
+              class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+              취소</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +120,6 @@ import HardBreak from '@tiptap/extension-hard-break'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 
 import { v4 as uuidv4 } from 'uuid'
-
 import axios from 'axios'
 
 import {
@@ -57,6 +136,7 @@ export default {
   data() {
     return {
       editor: null,
+      title: ''
     }
   },
 
@@ -100,19 +180,28 @@ export default {
     // put editor data with axios
     putData() {
       axios.post('http://127.0.0.1:8000/templates/', {
-        content: this.editor.getJSON()
+        content: this.editor.getJSON(),
+        title: this.title
       },
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
         .then(response => {
           console.log(response)
         })
         .catch(error => {
           console.log(error)
         })
+    },
+
+    toggleModal() {
+      // toggle default modal's aria-hidden attribute and class named hidden
+      this.$refs.defaultModal.toggleAttribute('aria-hidden')
+      this.$refs.defaultModal.classList.toggle('hidden')
+      // set title to empty string
+      this.title = ''
     }
   },
 
@@ -130,7 +219,8 @@ button {
 /* Basic editor styles */
 .ProseMirror {
   padding: 1rem;
-  border: 1px solid #94a3b8;
+  border: 1px solid #6B7280;
+  border-radius: 0.5rem;
   height: 100%;
 
   >hr {
@@ -145,12 +235,16 @@ button {
 .ProseMirror p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;
-  color: #adb5bd;
+  color: #6B7280;
   pointer-events: none;
   height: 0;
 }
 
 hr.ProseMirror-selectednode {
   border-top: 1px solid #68CEF8;
+}
+
+#defaultModal {
+  background: rgba($color: #000000, $alpha: 0.5);
 }
 </style>
