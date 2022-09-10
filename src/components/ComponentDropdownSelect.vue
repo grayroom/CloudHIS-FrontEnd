@@ -1,6 +1,6 @@
 <template>
     <node-view-wrapper class="dropdown-select">
-        <select class="text-caption">
+        <select class="text-caption text-black">
             <option :selected="true" :disabled="true" hidden="true" value="">선택하세요</option>
             <option v-for="option in options" :key="option.idx" :value="option.value">
                 {{ option.label }}
