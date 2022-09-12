@@ -121,6 +121,11 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule'
 
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
 
 import {
   radioSelect as RadioSelect,
@@ -183,11 +188,18 @@ export default {
         "content": this.editor.getJSON(),
         "title": this.title
       }
-      axios.post('http://127.0.0.1:8000/templates/',
+
+      var accessToken = Cookies.get('access')
+
+      axios.post('/emr/api/templates/',
         JSON.stringify(data),
         {
+          withCredentials: true,
+          crossDomain: true,
+          credentials: "access",
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: accessToken
           }
         })
         .then(response => {

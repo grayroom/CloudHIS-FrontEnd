@@ -9,6 +9,11 @@
 <script>
 import VJstree from 'vue-jstree'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
 
 export default {
   components: {
@@ -21,7 +26,16 @@ export default {
   },
 
   beforeMount() {
-    axios.get('http://127.0.0.1:8000/templates/')
+    var accessToken = Cookies.get('access')
+
+    axios.get('/emr/api/templates/', {
+          withCredentials: true,
+          crossDomain: true,
+          credentials: "access",
+          headers: {
+            // Authorization: "Bearer " + Cookies.get('access')
+            Authorization: accessToken
+          }})
       .then(response => {
         for (var template in response.data) {
           this.data.push({

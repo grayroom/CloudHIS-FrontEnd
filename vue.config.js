@@ -6,7 +6,7 @@ module.exports = defineConfig({
   publicPath: '/', // app이 배포될 root url
   //FIXME: CloudHIS-BackEnd -> 환경변수로 추출하는편이 좋아보임
   outputDir: '../CloudHIS-BackEnd/dist', // app이 배포될 경로
-  assetsDir: 'static', // static 폴더를 정의하는 경로
+  assetsDir: 'emr/static', // static 폴더를 정의하는 경로
 
   //NOTE: 별도로 webpack을 설정하면 같은 파일을 다른 이름으로 여러번 패키징하는 문제가 생기는듯
   // configureWebpack: {
