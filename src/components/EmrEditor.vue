@@ -189,7 +189,7 @@ export default {
         "title": this.title
       }
 
-      var accessToken = Cookies.get('access')
+      const accessToken = Cookies.get('access');
 
       axios.post('/emr/api/templates/',
         JSON.stringify(data),
@@ -205,11 +205,11 @@ export default {
         .then(response => {
           console.log(response)
           //FIXME: reload 하지 않고 특정 컴포넌트만 reload 할수있는 방법이 있을것 같아
-          location.reload(true)
+          location.reload()
         })
         .catch(error => {
           console.log(error)
-          location.reload(true)
+          location.reload()
         })
 
       this.toggleModal()

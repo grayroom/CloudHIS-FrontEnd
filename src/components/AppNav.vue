@@ -96,7 +96,9 @@
         <div class="flex items-center">
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li>
-              <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">의무기록</a>
+              <router-link to="/emr/prescript" class="text-gray-900 dark:text-white hover:underline">
+                의무기록
+              </router-link>
             </li>
             <li>
               <router-link to="/emr/template" class="text-gray-900 dark:text-white hover:underline">
@@ -203,12 +205,12 @@
       $route(to, from) {
         this.is_login = false
   
-        if (to.path != from.path)
+        if (to.path !== from.path)
           console.log('route changed')
-        var accessToken = Cookies.get('access')
-        var refreshToken = Cookies.get('refresh')
-  
-        if (accessToken == undefined || refreshToken == undefined) {
+        const accessToken = Cookies.get('access');
+        const refreshToken = Cookies.get('refresh');
+
+        if (accessToken === undefined || refreshToken === undefined) {
           this.$refs.username.innerHTML = "로그인이 필요합니다."
           this.$refs.useremail.innerHTML = ""
           Cookies.remove('access')
