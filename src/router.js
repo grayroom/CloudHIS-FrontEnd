@@ -15,7 +15,7 @@ const route = [
   //   path: '/:pathMatch(.*)*',
   //   redirect: '/404',
   // }
-    //TODO: 404 페이지를 만들어서 띄워준다.
+    // FIXME: TODO: 404 페이지를 만들어서 띄워준다.
 ];
 
 const router = new VueRouter({

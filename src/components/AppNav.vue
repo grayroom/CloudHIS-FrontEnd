@@ -144,18 +144,16 @@
   
         // TODO: 로그아웃 요청을 Auth 서버로 보내야만함!! 
         axios.post('/auth/api/logout/',
-          JSON.stringify({
+          {
             "refresh": refreshToken
           }, {
             withCredentials: true,
             crossDomain: true,
             credentials: "access",
             headers: {
-              // Authorization: "Bearer " + Cookies.get('access')
-              Authorization: accessToken
+              Authorization: "Bearer " + accessToken
             }
           })
-        )
           .then(() => {
             Cookies.remove('access')
             Cookies.remove('refresh')
@@ -178,8 +176,7 @@
             crossDomain: true,
             credentials: "access",
             headers: {
-              // Authorization: "Bearer " + Cookies.get('access')
-              Authorization: accessToken
+              Authorization: "Bearer " + accessToken
             }
           })
           .then((response) => {
@@ -198,13 +195,13 @@
         is_login: false,
       }
     },
-  
+
     watch: {
       // TODO: 토큰이 있다면, 토큰이 만료되었는지 여부를 확인하고,,, refresh token까지 만료된 경우에는
       // 로그아웃을 시키고,,, access token만 만료된 경우에는 refresh token으로 access token을 재발급 받아야함
       $route(to, from) {
         this.is_login = false
-  
+
         if (to.path !== from.path)
           console.log('route changed')
         const accessToken = Cookies.get('access');
@@ -213,32 +210,34 @@
         if (accessToken === undefined || refreshToken === undefined) {
           this.$refs.username.innerHTML = "로그인이 필요합니다."
           this.$refs.useremail.innerHTML = ""
+          this.is_login = false
           Cookies.remove('access')
           Cookies.remove('refresh')
         } else {
           this.is_login = true
-  
-          var accessTokenJSON = JSON.parse(atob(accessToken.split('.')[1]))
+
+          const accessTokenJSON = JSON.parse(atob(accessToken.split('.')[1]));
           if (new Date(accessTokenJSON.exp * 1000) < new Date()) {
             axios.post('/auth/api/token/refresh/',
-              JSON.stringify({
-                "refresh": refreshToken
-              }),
+                {
+                  "refresh": refreshToken
+                },
             )
-              .then((response) => {
-                Cookies.remove('access')
-                Cookies.remove('refresh')
-                Cookies.set('access', response.data.access)
-                Cookies.set('access', response.data.refresh)
-                this.getUserinfo(response.data.access)
-              })
-              .catch(() => {
-                // NOTE: token validation failed...
-                Cookies.remove('access')
-                Cookies.remove('refresh')
-                this.$refs.username.innerHTML = "로그인이 필요합니다."
-                this.$refs.useremail.innerHTML = ""
-              })
+                .then((response) => {
+                  Cookies.remove('access')
+                  Cookies.remove('refresh')
+                  Cookies.set('access', response.data.access)
+                  Cookies.set('access', response.data.refresh)
+                  this.getUserinfo(response.data.access)
+                })
+                .catch(() => {
+                  // NOTE: token validation failed...
+                  Cookies.remove('access')
+                  Cookies.remove('refresh')
+                  this.$refs.username.innerHTML = "로그인이 필요합니다."
+                  this.$refs.useremail.innerHTML = ""
+                  this.is_login = false
+                })
           } else {
             this.getUserinfo(Cookies.get('access'))
           }

@@ -192,14 +192,14 @@ export default {
       const accessToken = Cookies.get('access');
 
       axios.post('/emr/api/templates/',
-        JSON.stringify(data),
+        data,
         {
           withCredentials: true,
           crossDomain: true,
           credentials: "access",
           headers: {
             'Content-Type': 'application/json',
-            Authorization: accessToken
+            Authorization: "Bearer " + accessToken
           }
         })
         .then(response => {
