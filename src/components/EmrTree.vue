@@ -1,8 +1,6 @@
 <template>
-  <div class="overflow-hidden border-gray-200 border-r p-4 dark:border-gray-500">
+  <div class="overflow-scroll p-4 dark:border-gray-500 h-40 md:h-full shadow-inner-white">
     <v-jstree :data="data" show-checkbox multiple allow-batch whole-row @item-click="itemClick"></v-jstree>
-
-
   </div>
 </template>
 
@@ -71,5 +69,9 @@ export default {
 
 .tree-ocl {
   color: 1px solid rgb(209 213 219);
+}
+
+.shadow-inner-white {
+  box-shadow: grey 0px -40px 40px -3em inset; 
 }
 </style>

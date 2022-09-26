@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-10 p-10">
+  <div class="flex gap-10 max-w-[64rem]">
     <div class="flex-1">
       <div class="max-w-[48rem] min-w-[18rem] mx-auto">
         <div class="relative z-0 mb-6 w-full group">

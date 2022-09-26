@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 editor">
+  <div class="editor">
     <div class="editor__buttons--navbar mb-2 flex flex-wrap gap-1">
       <button
         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-300 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
@@ -184,12 +184,11 @@ export default {
 
     // put editor data with axios
     putData() {
-      let data = {
+      const accessToken = Cookies.get('access');
+      const data = {
         "content": this.editor.getJSON(),
         "title": this.title
       }
-
-      const accessToken = Cookies.get('access');
 
       axios.post('/emr/api/templates/',
         data,
@@ -204,12 +203,11 @@ export default {
         })
         .then(response => {
           console.log(response)
-          //FIXME: reload 하지 않고 특정 컴포넌트만 reload 할수있는 방법이 있을것 같아
-          location.reload()
+          // location.reload()
         })
         .catch(error => {
           console.log(error)
-          location.reload()
+          // location.reload()
         })
 
       this.toggleModal()

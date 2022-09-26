@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <p class="dark:text-white">cloud his 개발페이지 메인화면입니다.</p>
+    <div class="max-w-[48rem] min-w-[18rem] mx-auto">
+        <p class="dark:text-white">cloud his 개발페이지 메인화면입니다.(emr)</p>
     </div>
 </template>
 
