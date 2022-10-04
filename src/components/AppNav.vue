@@ -3,7 +3,7 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="/" class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-          CloudHIS
+          CloudHIS / EMR
         </a>
         <div class="flex items-center md:order-2 gap-2">
           <button type="button" @click="toggleMainMenu"
@@ -24,11 +24,15 @@
             class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button" @click="toggleUserMenu">
             <span class="sr-only">Open user menu</span>
-            <svg class="w-8 h-8 p-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            <svg class="w-8 h-8 p-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd">
+              </path>
+            </svg>
           </button>
           <!-- Dropdown menu -->
           <div
-            class="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden cursor-pointer select-none border border-gray-500" 
+            class="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden cursor-pointer select-none border border-gray-500"
             id="user-dropdown" ref="userMenu" aria-hidden="true">
             <div class="py-3 px-4">
               <span class="block text-sm text-gray-900 dark:text-white" ref="username"></span>
@@ -96,8 +100,13 @@
         <div class="flex items-center">
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li>
+              <router-link to="/emr" class="text-gray-900 dark:text-white hover:underline">
+                메인페이지
+              </router-link>
+            </li>
+            <li>
               <router-link to="/emr/prescript" class="text-gray-900 dark:text-white hover:underline">
-                의무기록
+                진료
               </router-link>
             </li>
             <li>
@@ -219,7 +228,7 @@ export default {
         this.is_login = true
         const accessTokenJSON = JSON.parse(atob(accessToken.split('.')[1]));
 
-        if(accessTokenJSON.authority >= 2) {
+        if (accessTokenJSON.authority >= 2) {
           this.is_admin = true
         }
         if (new Date(accessTokenJSON.exp * 1000) < new Date()) {

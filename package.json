@@ -25,7 +25,9 @@
     "core-js": "^3.8.3",
     "js-cookie": "^3.0.1",
     "sass-loader": "^13.0.2",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "uuid": "^9.0.0",
+    "v-calendar": "^2.4.1",
     "vue": "^2.6.14",
     "vue-jstree": "^2.1.6",
     "vue-router": "^3.6.4"
