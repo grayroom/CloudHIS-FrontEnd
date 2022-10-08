@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white dark:bg-gray-800 h-screen overflow-y-scroll">
+	<div class="bg-white dark:bg-gray-800 h-screen overflow-y-scroll scrollbar-hide">
 		<app-nav class="z-40 absolute w-full border-b border-gray-500"></app-nav>
 		<router-view class='p-content'></router-view>
 	</div>

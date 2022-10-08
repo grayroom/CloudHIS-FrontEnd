@@ -42,13 +42,13 @@
               <li>
                 <a href="/auth/info"
                   class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                  정보수정
+                  my info
                 </a>
               </li>
               <li>
                 <a class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   @click="logout">
-                  로그아웃
+                  logout
                 </a>
               </li>
             </ul>
@@ -56,7 +56,7 @@
               <li @click="toggleUserMenu">
                 <a href="/auth/login"
                   class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                  로그인
+                  login
                 </a>
               </li>
             </ul>
@@ -70,7 +70,7 @@
             <li>
               <a href="#"
                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                aria-current="page">메인페이지</a>
+                aria-current="page">Main</a>
             </li>
             <li>
               <!-- FIXME: ClusterIP의 내부 도메인 이름으로 변경해서 접근 가능하도록 변경해야함 -->
@@ -82,13 +82,13 @@
             <li v-if="is_admin">
               <a href="/admin/"
                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                관리자
+                Admin
               </a>
             </li>
             <li v-else>
               <a href="/plan/"
                 class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                일정
+                Plan
               </a>
             </li>
           </ul>
@@ -101,17 +101,17 @@
           <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
             <li>
               <router-link to="/emr" class="text-gray-900 dark:text-white hover:underline">
-                메인페이지
+                Dashboard
               </router-link>
             </li>
             <li>
               <router-link to="/emr/prescript" class="text-gray-900 dark:text-white hover:underline">
-                진료
+                Diagnosis
               </router-link>
             </li>
             <li>
               <router-link to="/emr/template" class="text-gray-900 dark:text-white hover:underline">
-                서식생성기
+                Template
               </router-link>
             </li>
           </ul>
@@ -164,9 +164,9 @@ export default {
           Cookies.remove('refresh')
           this.toggleUserMenu()
           this.is_login = false
-          this.$refs.username.innerHTML = "로그인이 필요합니다."
+          this.$refs.username.innerHTML = "Login needed."
           this.$refs.useremail.innerHTML = ""
-          alert('로그아웃 되었습니다.')
+          alert('logged out.')
           this.$router.go('/emr/home');
         })
         .catch((error) => {
@@ -192,7 +192,7 @@ export default {
         .catch(() => {
           Cookies.remove('access')
           Cookies.remove('refresh')
-          this.$refs.username.innerHTML = "로그인이 필요합니다."
+          this.$refs.username.innerHTML = "Login needed."
           this.$refs.useremail.innerHTML = ""
           this.is_login = false
         })
@@ -219,7 +219,7 @@ export default {
       const refreshToken = Cookies.get('refresh');
 
       if (accessToken === undefined || refreshToken === undefined) {
-        this.$refs.username.innerHTML = "로그인이 필요합니다."
+        this.$refs.username.innerHTML = "Login needed."
         this.$refs.useremail.innerHTML = ""
         this.is_login = false
         Cookies.remove('access')
@@ -256,7 +256,7 @@ export default {
               // NOTE: token validation failed...
               Cookies.remove('access')
               Cookies.remove('refresh')
-              this.$refs.username.innerHTML = "로그인이 필요합니다."
+              this.$refs.username.innerHTML = "Login needed."
               this.$refs.useremail.innerHTML = ""
               this.is_login = false
             })

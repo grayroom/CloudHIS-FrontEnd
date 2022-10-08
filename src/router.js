@@ -12,6 +12,10 @@ const route = [
     path: '/emr/prescript',
     component: () => import('@/components/EmrPrescript'),
   },
+  {
+    path: '/emr/patient/:id',
+    component: () => import('@/components/EmrPatient'),
+  },
   // {
   //   path: '/:pathMatch(.*)*',
   //   redirect: '/404',
