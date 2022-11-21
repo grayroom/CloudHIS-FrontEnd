@@ -13,8 +13,12 @@ const route = [
     component: () => import('@/components/EmrPrescript'),
   },
   {
-    path: '/emr/patient/:id',
+    path: '/emr/patient',
     component: () => import('@/components/EmrPatient'),
+  },
+  {
+    path: '/emr/appointment/new',
+    component: () => import('@/components/EmrAppointmentNew'),
   },
   // {
   //   path: '/:pathMatch(.*)*',

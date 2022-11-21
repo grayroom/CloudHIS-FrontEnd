@@ -72,7 +72,7 @@
 				<div id="accordion-collapse" data-accordion="collapse">
 					<h2 id="accordion-collapse-heading-1">
 						<button type="button"
-							class="flex items-center justify-between w-full p-5 font-medium text-left border border-b-0 border-gray-200 rounded-t-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
+							class="flex items-center justify-between w-full p-5 font-medium text-left border border-b-0 border-gray-200 rounded-t-lg dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
 							@click="toggleAccordion('accordion-1', $event)">
 							<span>Symptoms</span>
 							<svg class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20"
@@ -83,7 +83,7 @@
 							</svg>
 						</button>
 					</h2>
-					<div id="accordion-collapse-body-1" class="" ref="accordion-1">
+					<div id="accordion-collapse-body-1" class="accordion" ref="accordion-1">
 						<div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
 							<ul
 								class="space-y-3 list-disc list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
@@ -102,7 +102,7 @@
 					</div>
 					<h2 id="accordion-collapse-heading-2">
 						<button type="button"
-							class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 border border-b-0 border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+							class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 border border-b-0 border-gray-200 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
 							@click="toggleAccordion('accordion-2', $event)">
 							<span>Medicines</span>
 							<svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@
 							</svg>
 						</button>
 					</h2>
-					<div id="accordion-collapse-body-2" class="hidden" ref="accordion-2">
+					<div id="accordion-collapse-body-2" class="accordion hidden" ref="accordion-2">
 						<div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
 							<ul
 								class="space-y-3 list-none list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
@@ -131,7 +131,7 @@
 					</div>
 					<h2 id="accordion-collapse-heading-3">
 						<button type="button"
-							class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+							class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-900 border border-gray-200 dark:border-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
 							@click="toggleAccordion('accordion-3', $event)">
 							<span>Medical Records</span>
 							<svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -141,8 +141,8 @@
 							</svg>
 						</button>
 					</h2>
-					<div id="accordion-collapse-body-3" class="hidden" ref="accordion-3">
-						<div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+					<div id="accordion-collapse-body-3" class="accordion hidden" ref="accordion-3">
+						<div class="p-5 font-light border rounded-b-lg border-gray-200 dark:border-gray-700 dark:bg-gray-900">
 							<div v-for="( emr, idx ) in emrList" :key="idx" @click="showEmrData(idx)" class="flex items-center space-x-4 border-b border-gray-600 pb-4 cursor-pointer
 																	hover:bg-gray-100 dark:hover:bg-gray-700 p-4 overflow-x-scroll scrollbar-hide overscroll-none">
 								<div class="flex-1 min-w-0 break-words">
@@ -259,9 +259,9 @@ export default {
 
 		// TODO: 환자와 관련된 정보를 가져옴
 		// FIXME: 이거 아직 구현이 안됨... 환자콘솔 구현이랑 같이 진행해야함
-		axios.post('/auth/api/patient/info',
+		axios.post('/auth/api/patient/info/',
 			{
-				"user_idx": this.$route.params.id
+				"user_idx": this.$route.params.idx
 			},
 			{
 				withCredentials: true,
@@ -277,7 +277,7 @@ export default {
 				console.log(error);
 			});
 
-		axios.post('/emr/api/symptom/list',
+		axios.post('/emr/api/symptom/list/',
 			{
 				"patient_idx": this.$route.params.id
 			},
@@ -295,7 +295,7 @@ export default {
 				console.log(error);
 			});
 
-		axios.post('/emr/prescript/list',
+		axios.post('/emr/prescript/list/',
 			{
 				"patient_idx": this.$route.params.id
 			},
@@ -313,7 +313,7 @@ export default {
 				console.log(error);
 			});
 
-		axios.post('/emr/api/emr/list',
+		axios.post('/emr/api/emr/list/',
 			{
 				"patient_idx": this.$route.params.id
 			},
@@ -334,6 +334,10 @@ export default {
 
 	methods: {
 		toggleAccordion(id, e) {
+			document.querySelectorAll('.accordion').forEach((el) => {
+				el.classList.add('hidden');
+			});
+
 			this.$refs[id].classList.toggle('hidden');
 			e.currentTarget.children[1].classList.toggle('rotate-180');
 		},

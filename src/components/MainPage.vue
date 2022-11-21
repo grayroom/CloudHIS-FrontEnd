@@ -14,13 +14,13 @@
 						<button outlined class="text-white bg-blue-700 hover:bg-blue-800 
 								focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
 								rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 
-								dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click="routeAppointmentPage">
 							new appointment
 						</button>
 						<button outlined class="text-white bg-blue-700 hover:bg-blue-800 
-														focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium 
-														rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 
-														dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+								focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+								text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+								dark:focus:ring-blue-800" @click="routeDiagnosisPage">
 							new diagnosis
 						</button>
 					</nav>
@@ -117,8 +117,10 @@
   
 <script>
 import axios from 'axios'
-// import { access } from 'fs';
 import Cookies from 'js-cookie'
+
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 
 // https://vcalendar.io/installation.html
@@ -173,20 +175,35 @@ export default {
 		},
 
 		routePatientPage(idx) {
-			this.$router.push({ path: '/emr/patient/' + idx })
-		}
+			if (this.$route.path != '/emr/patient') {
+				this.$router.push({ path: '/emr/patient', query: { idx: idx } })
+			}
+		},
+
+		routeAppointmentPage() {
+			if (this.$route.path != '/emr/appointment/new') {
+				this.$router.push({ path: '/emr/appointment/new' })
+			}
+		},
+
+		routeDiagnosisPage() {
+			if (this.$route.path != '/emr/prescript') {
+				this.$router.push({ path: '/emr/prescript' })
+			}
+		},
 	},
 
 	watch: {
 		selectedDate() {
-			console.log(this.selectedDate)
 
 			const accessToken = Cookies.get('access');
 			const accessTokenJSON = JSON.parse(atob(accessToken.split('.')[1]));
 
-			axios.post('emr/api/appointment/list',
+			console.log(accessTokenJSON)
+
+			axios.post('/emr/api/appointment/list/',
 				{
-					"patient_idx": accessTokenJSON.user_id,
+					"doctor_idx": accessTokenJSON.user_id,
 					"begin_at": this.selectedDate
 				},
 				{
