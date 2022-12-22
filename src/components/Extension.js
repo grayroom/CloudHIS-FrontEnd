@@ -4,6 +4,7 @@ import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import RadioSelect from './ComponentRadioSelect.vue';
 import DropdownSelect from './ComponentDropdownSelect.vue';
 import Editable from './ComponentEditable.vue';
+import ComponentTagHighlight from './ComponentTagHighlight.vue';
 
 export const radioSelect = Node.create({
   name: 'RadioSelect',
@@ -102,5 +103,35 @@ export const editable = Node.create({
 
   addNodeView() {
     return VueNodeViewRenderer(Editable);
+  },
+});
+
+export const componentTagHighlight = Node.create({
+  name: 'ComponentTagHighlight',
+  group: 'block',
+  atom: true,
+
+  addAttributes() {
+    return {
+      text: {
+        default: '',
+      }
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: 'tag-highlight',
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['tag-highlight', mergeAttributes(HTMLAttributes)];
+  },
+
+  addNodeView() {
+    return VueNodeViewRenderer(ComponentTagHighlight);
   },
 });

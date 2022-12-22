@@ -7,10 +7,10 @@
 				<div class="modal-header flex flex-shrink-0 items-center justify-between p-2 border-b border-gray-500
 							rounded-t-md">
 					<h5 class="text-xl font-medium leading-normal text-gray-800 dark:text-white" id="exampleModalLabel">
-						Modal title
+						Key Factors
 					</h5>
 
-					<button @click="toggle_helper = !toggle_helper" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5
+					<button @click="toggleHelper" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5
 									ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
 						<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
 							xmlns="http://www.w3.org/2000/svg">
@@ -21,20 +21,48 @@
 						<span class="sr-only">close</span>
 					</button>
 				</div>
-
-				<div class="p-2">
-					<p></p>
+				<div class="py-4">
+          <div role="status" class="max-w-sm animate-pulse py-4">
+            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div role="status" class="max-w-sm animate-pulse py-4">
+            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div role="status" class="max-w-sm animate-pulse py-4">
+            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+            <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+            <span class="sr-only">Loading...</span>
+          </div>
 				</div>
 			</div>
 		</div>
 
-		<div id="helper-toggle-btn" v-else class="drop-shadow-lg" @click="toggle_helper = !toggle_helper">
+		<div id="helper-toggle-btn" v-else class="drop-shadow-lg" @click="toggleHelper">
 			<i class="fas fa-rocket"></i>
 		</div>
 	</div>
 </template>
 
 <script>
+import Cookies from "js-cookie";
+import axios from "axios";
+
 export default {
 	name: "EmrNlpHelper",
 
@@ -42,7 +70,41 @@ export default {
 		return {
 			toggle_helper: false,
 		}
-	}
+	},
+
+  methods: {
+    sibal() {
+      this.$emit("new-text", 'test dummy text');
+    },
+
+    toggleHelper() {
+      this.toggle_helper = !this.toggle_helper;
+      if(this.toggle_helper) {
+        const accessToken = Cookies.get('access')
+        console.log(this.$parent.pre_editor.getHTML())
+
+        axios.post('/emr/api/issueEMR/',
+            {
+              "emr": this.$parent.pre_editor.getHTML(),
+            }, {
+              withCredentials: true,
+              crossDomain: true,
+              credentials: "access",
+              headers: {
+                Authorization: "Bearer " + accessToken,
+                ContentType: "application/json"
+              }
+            })
+            .then((res) => {
+              console.log(res.data)
+              this.$emit("new-text", res.data);
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+      }
+    },
+  }
 }
 </script>
 
@@ -78,4 +140,6 @@ export default {
 
 .helper-fade-enter-active,
 .helper-fade-leave-active {}
+
+
 </style>
