@@ -2,9 +2,9 @@
 	<div class="gap-10 max-w-[64rem] sticky top-0">
 		<div class="text-gray-900 dark:text-gray-300 mb-5 pb-5
 						border-gray-600 border-b ">
-			<p class="text-3xl font-bold">{{patient.name}}</p>
+			<p class="text-3xl font-bold">{{ patient.name }}</p>
 			<span class="text-gray-600 dark:text-gray-400">
-				DOB: {{patient.birth}} ({{patient.sex}})
+				DOB: {{ patient.dob }} ({{ patient.sex }})
 			</span>
 		</div>
 		<div class="flex flex-col-reverse md:flex-row gap-10 overflow-y-scroll scrollbar-hide">
@@ -36,7 +36,7 @@
 							<input type="text" name="floating_name" id="floating_name" class="block py-2.5 px-0 
 																		w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 focus:outline-none
 																	border-gray-300 appearance-none dark:text-white dark:border-gray-600" placeholder=" " required=""
-								v-model="emrList[targetEmrIdx].category" readonly>
+								v-model="emrList[targetEmrIdx]['diag_type']" readonly>
 							<label for="floating_name"
 								class="absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] ">
 								EMR Category
@@ -47,7 +47,7 @@
 							<input type="text" name="floating_name" id="floating_name" class="block py-2.5 px-0 
 													w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 focus:outline-none
 												border-gray-300 appearance-none dark:text-white dark:border-gray-600" placeholder=" " required=""
-								v-model="emrList[targetEmrIdx].doctorName" readonly>
+								v-model="emrList[targetEmrIdx]['doctor_id']['name']" readonly>
 							<label for="floating_name"
 								class="absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] ">
 								Primary Care Doctor
@@ -56,15 +56,15 @@
 					</div>
 
 					<label for="pre_script"
-						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">preliminary</label>
-					<textarea id="pre_script" rows="4" v-model="emrList[targetEmrIdx].preliminary"
-						class="block p-2.5 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-						placeholder="preliminary examination" readonly></textarea>
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">preliminary</label>
+					<editor-content :editor="pre_editor"
+						class="block mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 
-					<label for="cur_script" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">comment</label>
-					<textarea id="cur_script" rows="4" v-model="emrList[targetEmrIdx].comment"
-						class="block p-2.5 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
-						placeholder="comment" readonly></textarea>
+					<label for="cur_script"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">comment</label>
+					<editor-content :editor="cur_editor"
+						class="block mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
 				</div>
 			</div>
 			<!-- NOTE: list view -->
@@ -86,15 +86,16 @@
 					<div id="accordion-collapse-body-1" class="accordion" ref="accordion-1">
 						<div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
 							<ul
-								class="space-y-3 list-disc list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
+								class="space-y-3 p-1 list-disc list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
 								<li v-for="symptom in symptoms" :key="symptom.idx" class="whitespace-nowrap">
-									{{symptom.severity}}
+									{{ symptom['s_severity'] }}
 									<span class="font-bold rounded text-gray-900 dark:text-white bg-green-800 p-1 mx-2">
-										{{symptom.name}}
+										{{ symptom['s_name'] }}
 									</span>
-									{{symptom.code}}
+									{{ symptom['s_code'] }}
 									<span class="rounded text-gray-900 dark:text-white bg-yellow-800 p-1 mx-2">
-										{{symptom.onset}} ~
+										<!-- print to locale date format -->
+										{{ symptom['s_onset'].split('T', 2)[0] }} ~
 									</span>
 								</li>
 							</ul>
@@ -115,15 +116,15 @@
 					<div id="accordion-collapse-body-2" class="accordion hidden" ref="accordion-2">
 						<div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
 							<ul
-								class="space-y-3 list-none list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
+								class="space-y-3 p-1 list-none list-inside text-gray-500 dark:text-gray-400 overflow-x-scroll scrollbar-hide overscroll-none">
 								<li v-for="medicine in medicines" :key="medicine.idx" class="whitespace-nowrap">
 									<i class="fa-solid fa-tablets"></i>
 									<span class="font-bold rounded text-gray-900 dark:text-white bg-green-800 p-1 mx-2">
-										{{medicine.name}}
+										{{ medicine['medicine_name'] }}
 									</span>
-									{{medicine.unit}} <i class="fa-solid fa-x"></i> {{medicine.amount}}
+									{{ medicine['medicine_unit'] }} <i class="fa-solid fa-x"></i> {{ medicine['quantity'] }}
 									<span class="rounded text-gray-900 dark:text-white bg-yellow-800 p-1 mx-2">
-										{{medicine.begin}} ~ {{medicine.end}}
+										{{ medicine['medicine_begin_time'].split('T', 2)[0] }} ~
 									</span>
 								</li>
 							</ul>
@@ -147,10 +148,10 @@
 																	hover:bg-gray-100 dark:hover:bg-gray-700 p-4 overflow-x-scroll scrollbar-hide overscroll-none">
 								<div class="flex-1 min-w-0 break-words">
 									<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-										{{emr.symptom}} - {{emr.category}}
+										{{ emr['diag_type'] }}
 									</p>
 									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
-										{{emr.createdAt}}
+										{{ emr['created_time'].split('T', 2)[0] }} by {{ emr['doctor_id']['name'] }}
 									</p>
 								</div>
 							</div>
@@ -166,14 +167,69 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Editor, EditorContent } from '@tiptap/vue-2'
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import Placeholder from "@tiptap/extension-placeholder";
+import HardBreak from "@tiptap/extension-hard-break";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
+
+import {
+	componentTagHighlight as ComponentTagHighlight
+} from './Extension.js'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 export default {
+	components: {
+		EditorContent
+	},
+
+	mounted() {
+		this.pre_editor = new Editor({
+			content: this.preliminary,
+			onUpdate: () => {
+				this.$emit('input', this.pre_editor.getHTML())
+			},
+			extensions: [
+				Document,
+				Paragraph,
+				Text,
+				ComponentTagHighlight,
+				Placeholder.configure({
+					placeholder: 'fill template',
+				}),
+				HardBreak,
+				HorizontalRule,
+			]
+		})
+
+		this.cur_editor = new Editor({
+			content: this.comment,
+			extensions: [
+				Document,
+				Paragraph,
+				Text,
+				ComponentTagHighlight,
+				Placeholder.configure({
+					placeholder: 'fill template',
+				}),
+				HardBreak,
+				HorizontalRule,
+			]
+		})
+	},
 
 	data() {
 		return {
+			pre_editor: null,
+			cur_editor: null,
+
+			preliminary: '',
+			comment: '',
+
 			targetEmrIdx: 0,
 			emrList: [
 				{
@@ -186,8 +242,6 @@ export default {
 					comment: "world",
 					createdAt: "2021-05-01",
 					updatedAt: "2021-05-01",
-
-					symptom: 'haedache'
 				},
 				{
 					idx: 2,
@@ -200,8 +254,6 @@ export default {
 					comment: "",
 					createdAt: "2021-05-02",
 					updatedAt: "2021-05-02",
-
-					symptom: 'stomachache'
 				},
 
 			],
@@ -210,48 +262,16 @@ export default {
 				birth: '1999-02-26',
 				sex: 'male'
 			},
-			medicines: [
-				{
-					name: "acetaminophen",
-					amount: 30,
-					unit: "500mg",
-					begin: "2021-01-01",
-				},
-				{
-					name: "ibuprofen",
-					amount: 30,
-					unit: "500mg",
-					begin: "2021-01-01",
-				},
-				{
-					name: "aspirin",
-					amount: 30,
-					unit: "500mg",
-					begin: "2021-01-01",
-					end: "2021-01-31"
-				},
-			],
-			symptoms: [
-				{
-					name: "headache",
-					onset: "2021-01-01",
-					code: "R51",
-					severity: "severe",
-				},
-				{
-					name: "fever",
-					onset: "2021-01-01",
-					code: "R50.9",
-					severity: "moderate",
-				},
-				{
-					name: "cough",
-					onset: "2021-01-01",
-					code: "R05.9",
-					severity: "mild", // mild, moderate, severe
-				},
-			]
+			medicines: [],
+			symptoms: []
 		}
+	},
+
+	props: {
+		id: {
+			type: Number,
+			default: 0
+		},
 	},
 
 	created() {
@@ -261,7 +281,7 @@ export default {
 		// FIXME: 이거 아직 구현이 안됨... 환자콘솔 구현이랑 같이 진행해야함
 		axios.post('/auth/api/patient/info/',
 			{
-				"user_idx": this.$route.params.idx
+				"user_idx": this.$route.params.id
 			},
 			{
 				withCredentials: true,
@@ -295,7 +315,7 @@ export default {
 				console.log(error);
 			});
 
-		axios.post('/emr/prescript/list/',
+		axios.post('/emr/api/prescript/list/',
 			{
 				"patient_idx": this.$route.params.id
 			},
@@ -308,6 +328,7 @@ export default {
 			})
 			.then((response) => {
 				this.medicines = response.data;
+				console.log(this.medicines)
 			})
 			.catch((error) => {
 				console.log(error);
@@ -345,28 +366,14 @@ export default {
 		showEmrData(idx) {
 			this.openEmrContainer()
 
-			this.targetEmrIdx = idx
+			console.log(this.emrList[idx].comment.replaceAll('"', '\'').replaceAll('&quot;', '"'))
+			this.pre_editor.commands.clearContent()
+			this.cur_editor.commands.clearContent()
+			this.pre_editor.commands.insertContent(this.emrList[idx].appointment_id.preliminary.replaceAll('"', '\'').replaceAll('&quot;', '"'))
+			this.cur_editor.commands.insertContent(this.emrList[idx].comment.replaceAll('"', '\'').replaceAll('&quot;', '"'))
 
-			// FIXME 이걸 그냥 emr 불러올 때 같이 가져와버리는게 나아보여
-			const docIdx = this.emrList[idx].doctorIdx;
-			const accessToken = Cookies.get('access');
-
-			axios.post('/auth/api/user/info/',
-				{
-					userIdx: docIdx
-				}, {
-				withCredentials: true,
-				crossDomain: true,
-				headers: {
-					'Authorization': 'Bearer ' + accessToken
-				}
-			})
-				.then((response) => {
-					this.emrList[idx].doctorName = response.data.name;
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			this.pre_editor.setEditable(false)
+			this.cur_editor.setEditable(false)
 		},
 
 		openEmrContainer() {
@@ -381,5 +388,58 @@ export default {
 </script>
 
 <style lang="scss">
+button {
+	line-break: nowrap;
+}
 
+/* Basic editor styles */
+.ProseMirror {
+	padding: 1rem;
+	border: 1px solid rgb(209 213 219);
+	border-radius: 0.5rem;
+	height: 100%;
+
+	>hr {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.ProseMirror {
+		border-color: rgb(107 114 128);
+	}
+}
+
+/* Basic editor styles */
+
+/* Placeholder (at the top) */
+
+.ProseMirror p.is-editor-empty:first-child::before {
+	content: attr(data-placeholder);
+	float: left;
+	color: #6B7280;
+	pointer-events: none;
+	height: 0;
+}
+
+hr.ProseMirror-selectednode {
+	border-top: 1px solid #68CEF8;
+}
+
+#defaultModal {
+	background: rgba($color: #000000, $alpha: 0.5);
+}
+
+.pr {
+	color: orange;
+}
+
+.te {
+	color: deepskyblue;
+}
+
+.tr {
+	color: lightgreen;
+}
 </style>

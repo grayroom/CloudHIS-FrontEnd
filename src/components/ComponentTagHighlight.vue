@@ -1,5 +1,5 @@
 <template>
-  <node-view-wrapper class="tag-highlight" >
+  <node-view-wrapper class="tag-highlight">
     <div>
       <span v-html="text"></span>
     </div>
@@ -17,7 +17,6 @@ export default {
   },
 
   mounted() {
-    console.log('wtfwtf')
     console.log(this.text)
   },
 

@@ -31,8 +31,7 @@ export default {
 			crossDomain: true,
 			credentials: "access",
 			headers: {
-				// Authorization: "Bearer " + Cookies.get('access')
-				Authorization: accessToken
+				Authorization: "Bearer " + accessToken,
 			}
 		})
 			.then(response => {
