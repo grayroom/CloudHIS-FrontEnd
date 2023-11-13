@@ -8,6 +8,7 @@ const route = [
     component: () => import('@/components/MainPage'),
     name: 'EmrMain',
   },
+  { path: '/', redirect: '/emr' },
   {
     path: '/emr/template',
     component: () => import('@/components/TemplateEditor'),
